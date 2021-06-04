@@ -1,5 +1,7 @@
 import React, { useState, createContext } from "react";
 
+const api = "https://kennels-api.herokuapp.com"
+
 // The context is imported and used by individual components that need data
 export const AnimalContext = createContext();
 
@@ -11,14 +13,14 @@ export const AnimalProvider = (props) => {
 
   const getAnimals = () => {
     return fetch(
-      "http://localhost:8088/animals?_expand=customer&_expand=location&_sort=location.id"
+      `${api}/animals?_expand=customer&_expand=location&_sort=location.id`
     )
       .then((res) => res.json())
       .then(setAnimals);
   };
 
   const addAnimal = (animalObj) => {
-    return fetch("http://localhost:8088/animals", {
+    return fetch(`${api}/animals`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -28,13 +30,13 @@ export const AnimalProvider = (props) => {
   };
 
   const releaseAnimal = (animalId) => {
-    return fetch(`http://localhost:8088/animals/${animalId}`, {
+    return fetch(`${api}/animals/${animalId}`, {
       method: "DELETE",
     }).then(getAnimals);
   };
 
   const updateAnimal = (animal) => {
-    return fetch(`http://localhost:8088/animals/${animal.id}`, {
+    return fetch(`${api}/animals/${animal.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -44,7 +46,7 @@ export const AnimalProvider = (props) => {
   };
 
   const getAnimalById = (animalId) => {
-    return fetch(`http://localhost:8088/animals/${animalId}`).then((res) =>
+    return fetch(`${api}/animals/${animalId}`).then((res) =>
       res.json()
     );
   };

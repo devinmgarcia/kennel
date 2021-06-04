@@ -1,5 +1,7 @@
 import React, { useState, createContext } from "react";
 
+const api = "https://kennels-api.herokuapp.com"
+
 // The context is imported and used by individual components that need data
 export const EmployeeContext = createContext();
 
@@ -9,13 +11,13 @@ export const EmployeeProvider = (props) => {
   const [employee, setEmployee] = useState({})
 
   const getEmployees = () => {
-    return fetch("http://localhost:8088/employees?_expand=location")
+    return fetch(`${api}/employees?_expand=location`)
       .then((res) => res.json())
       .then(setEmployees);
   };
 
   const addEmployee = (employeeObj) => {
-    return fetch("http://localhost:8088/employees", {
+    return fetch(`${api}/employees`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -27,7 +29,7 @@ export const EmployeeProvider = (props) => {
   };
 
   const updateEmployee = (employee) => {
-    return fetch(`http://localhost:8088/employees/${employee.id}`, {
+    return fetch(`${api}/employees/${employee.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -37,7 +39,7 @@ export const EmployeeProvider = (props) => {
   };
 
   const getEmployeeById = (employeeId) => {
-    return fetch(`http://localhost:8088/employees/${employeeId}`).then((res) =>
+    return fetch(`${api}/employees/${employeeId}`).then((res) =>
       res.json()
     );
   };

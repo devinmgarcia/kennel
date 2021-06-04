@@ -1,5 +1,7 @@
 import React, { useState, createContext } from "react"
 
+const api = "https://kennels-api.herokuapp.com"
+
 // The context is imported and used by individual components that need data
 export const CustomerContext = createContext()
 
@@ -8,13 +10,13 @@ export const CustomerProvider = (props) => {
     const [customers, setCustomers] = useState([])
 
     const getCustomers = () => {
-        return fetch("http://localhost:8088/customers")
+        return fetch(`${api}/customers`)
         .then(res => res.json())
         .then(setCustomers)
     }
 
     const addCustomer = customerObj => {
-        return fetch("http://localhost:8088/customers", {
+        return fetch(`${api}/customers`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

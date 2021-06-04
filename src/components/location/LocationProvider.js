@@ -1,5 +1,7 @@
 import React, { useState, createContext } from "react"
 
+const api = "https://kennels-api.herokuapp.com"
+
 // The context is imported and used by individual components that need data
 export const LocationContext = createContext()
 
@@ -8,13 +10,13 @@ export const LocationProvider = (props) => {
     const [locations, setLocations] = useState([])
 
     const getLocations = () => {
-        return fetch("http://localhost:8088/locations?_embed=employees&_embed=animals")
+        return fetch(`${api}/locations?_embed=employees&_embed=animals`)
         .then(res => res.json())
         .then(setLocations)
     }
 
     const addLocation = locationObj => {
-        return fetch("http://localhost:8088/locations", {
+        return fetch(`${api}/locations`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -26,7 +28,7 @@ export const LocationProvider = (props) => {
     }
 
     const updateLocation = location => {
-        return fetch(`http://localhost:8088/locations/${location.id}`, {
+        return fetch(`${api}/locations/${location.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json"
@@ -37,7 +39,7 @@ export const LocationProvider = (props) => {
       }
 
       const getLocationById = locationId => {
-        return fetch(`http://localhost:8088/locations/${locationId}`)
+        return fetch(`${api}/locations/${locationId}`)
         .then(res => res.json())
       }
 
