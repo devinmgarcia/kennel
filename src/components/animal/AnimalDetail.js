@@ -3,20 +3,23 @@ import { AnimalContext } from "./AnimalProvider";
 import "./Animal.css";
 import { useHistory, useParams } from "react-router-dom";
 
-export const AnimalDetail = () => {
-  const { animals, getAnimalById, releaseAnimal } = useContext(AnimalContext);
+export const AnimalDetail = ({animalObject}) => {
+  const { animals, getAnimalById, releaseAnimal, } = useContext(AnimalContext);
   const [animal, setAnimal] = useState({ location: {}, customer: {} });
-
   const { animalId } = useParams();
+ 
 
   useEffect(() => {
-    const thisAnimal = animals.find((a) => a.id === parseInt(animalId)) || {
-      location: {},
-      customer: {},
-    };
-
-    setAnimal(thisAnimal);
-  }, [animalId]);
+    if(animalId) {
+      const thisAnimal = animals.find((a) => a.id === parseInt(animalId)) || {
+        location: {},
+        customer: {},
+      };
+      setAnimal(thisAnimal);
+    } else {
+      setAnimal(animalObject)
+    }
+  }, []);
 
   const history = useHistory();
 
@@ -25,6 +28,7 @@ export const AnimalDetail = () => {
       history.push("/animals");
     });
   };
+
 
   return (
     <section className="animal">

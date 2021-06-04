@@ -4,6 +4,7 @@ import { AnimalDetail } from "./animal/AnimalDetail";
 import { AnimalForm } from "./animal/AnimalForm";
 import { AnimalList } from "./animal/AnimalList";
 import { AnimalProvider } from "./animal/AnimalProvider";
+import { AnimalSearch } from "./animal/AnimalSearch";
 import { CustomerList } from "./customer/CustomerList";
 import { CustomerProvider } from "./customer/CustomerProvider";
 import { EmployeeDetail } from "./employees/EmployeeDetail";
@@ -46,6 +47,7 @@ export const ApplicationViews = () => {
 
       <AnimalProvider>
         <Route exact path="/animals">
+          <AnimalSearch/>
           <AnimalList />
         </Route>
 
